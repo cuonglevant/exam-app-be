@@ -2,13 +2,10 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
   username: String,
-  dob: Date,
   email: String,
   password: String,
-  phoneNumber: String,
-  idCard: String,
   userImage: String,
-  roles: {
+  role: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Role",
     nullables: true,
