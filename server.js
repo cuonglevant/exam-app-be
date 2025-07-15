@@ -8,6 +8,11 @@ import Role from "./app/models/role.model.js";
 // Import routes
 import authRoutes from "./app/routes/auth.routes.js";
 import userRoutes from "./app/routes/user.routes.js";
+import examRoutes from "./app/routes/exam.routes.js";
+import examSetRoutes from "./app/routes/examSet.routes.js";
+import studentRoutes from "./app/routes/student.routes.js";
+import roleRoutes from "./app/routes/role.routes.js";
+import resultRoutes from "./app/routes/result.routes.js";
 
 dotenv.config();
 
@@ -58,6 +63,11 @@ mongoose
 // Use routes
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/exam", examRoutes);
+app.use("/api/examset", examSetRoutes);
+app.use("/api/student", studentRoutes);
+app.use("/api/role", roleRoutes);
+app.use("/api/result", resultRoutes);
 
 // Set port, listen for requests
 const PORT = process.env.PORT || 8080;

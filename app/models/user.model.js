@@ -5,11 +5,18 @@ const userSchema = new mongoose.Schema({
   email: String,
   password: String,
   userImage: String,
-  role: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Role",
-    nullables: true,
-  },
+  roles: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Role",
+    },
+  ],
+  examSet: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "ExamSet",
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);

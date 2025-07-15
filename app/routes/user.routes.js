@@ -1,19 +1,26 @@
+import express from "express";
 import { authJwt } from "../middlewares/index.js";
 import * as controller from "../controllers/user.controller.js";
 
-export default function (app) {
-  app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept");
-    next();
-  });
+const router = express.Router();
 
-  app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
+// Test routes
+router.get("/test/user", [authJwt.verifyToken], controller.userBoard);
+router.get(
+  "/test/admin",
+  [authJwt.verifyToken, authJwt.isAdmin],
+  controller.adminBoard
+);
 
-  app.get(
-    "/api/test/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
-  );
+// User CRUD routes
+router.get("/", [authJwt.verifyToken, authJwt.isAdmin], controller.getAllUsers);
+router.get("/profile", [authJwt.verifyToken], controller.getUserProfile);
+router.get("/:id", [authJwt.verifyToken], controller.getUserById);
+router.put("/:id", [authJwt.verifyToken], controller.updateUser);
+router.delete(
+  "/:id",
+  [authJwt.verifyToken, authJwt.isAdmin],
+  controller.deleteUser
+);
 
-  app.post("/view/:contentId", [authJwt.verifyToken], controller.viewContent);
-}
+export default router;
